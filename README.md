@@ -11,6 +11,7 @@ Security          | Token Based (Spring Security and [JWT](https://github.com/au
 REST Spec         | [Open API Standard](https://www.openapis.org/) 
 In Memory DB      | MYSQL 
 Persistence       | JPA (Using Spring Data)
+PrimeNg           | (https://www.primefaces.org/primeng-v14-lts/)
 Client Build Tools| [angular-cli](https://github.com/angular/angular-cli), Webpack, npm
 Server Build Tools| Maven(Java) 
 ## Prerequisites
