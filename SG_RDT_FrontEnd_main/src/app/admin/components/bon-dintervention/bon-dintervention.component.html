@@ -1,0 +1,309 @@
+<div class="col-12">
+    <div class="card">
+        <p-toast></p-toast>
+
+        <h5>Filter Menu</h5>
+        
+        <p-table #dt1 [value]="bonDintervention" dataKey="id" [rows]="5" [rowsPerPageOptions]="[5,10, 25, 50]"
+            [rowHover]="true" styleClass="p-datatable-gridlines" [paginator]="true"
+            [globalFilterFields]="['utilisateur.nom','material.code','user.name','material.emplacemant.zone.zonNom','material.typeDeFamille.type','date']"
+            responsiveLayout="scroll">
+            
+            <ng-template pTemplate="caption">
+                
+                <button pButton label="Add" class="p-button-rounded mb-2" icon="pi pi-plus"
+                    (click)="showDialog2()"></button>
+
+
+                <div class="flex justify-content-between flex-column sm:flex-row">
+                    <button pButton label="Clear" class="p-button-outlined mb-2" icon="pi pi-filter-slash"
+                        (click)="clear(dt1)"></button>
+                    <span class="p-input-icon-left mb-2">
+                        <i class="pi pi-search"></i>
+                        <input pInputText type="text" #filter (input)="onGlobalFilter(dt1, $event)"
+                            placeholder="Search Keyword" class="w-full" />
+                    </span>
+                </div>
+            </ng-template>
+            <ng-template pTemplate="header">
+                <tr>
+                    <th>
+                        <div class="flex justify-content-between align-items-center">
+                            Nom de Technicien
+                            <p-columnFilter field="user" matchMode="in" display="menu" [showMatchModes]="false"
+                                [showOperator]="false" [showAddButton]="false">
+                                <ng-template pTemplate="header">
+                                    <div class="px-3 pt-3 pb-0">
+                                        <span class="font-bold">Search</span>
+                                    </div>
+                                </ng-template>
+                                <ng-template pTemplate="filter" let-value let-filter="filterCallback">
+                                    <p-multiSelect [ngModel]="value" [options]="users" placeholder="Any"
+                                        (onChange)="filter($event.value)" optionLabel="name">
+                                        <ng-template let-option pTemplate="item">
+                                            <div class="p-multiselect-representative-option">
+                                                <span class="ml-2">{{option.name}}</span>
+                                            </div>
+                                        </ng-template>
+                                    </p-multiSelect>
+                                </ng-template>
+                            </p-columnFilter>
+                        </div>
+                    </th>
+                    <th>
+                        <div class="flex justify-content-between align-items-center">
+                            Code
+                            <p-columnFilter type="text" field="material.code" display="menu"
+                                placeholder="Search by material.code"></p-columnFilter>
+                        </div>
+                    </th>
+                    <th>
+                        <div class="flex justify-content-between align-items-center">
+                            Type de Famille
+                            <p-columnFilter field="material.typeDeFamille" matchMode="in" display="menu"
+                                [showMatchModes]="false" [showOperator]="false" [showAddButton]="false">
+                                <ng-template pTemplate="header">
+                                    <div class="px-3 pt-3 pb-0">
+                                        <span class="font-bold">Search</span>
+                                    </div>
+                                </ng-template>
+                                <ng-template pTemplate="filter" let-value let-filter="filterCallback">
+                                    <p-multiSelect [ngModel]="value" [options]="typefamilles" placeholder="Any"
+                                        (onChange)="filter($event.value)" optionLabel="type">
+                                        <ng-template let-option pTemplate="item">
+                                            <div class="p-multiselect-representative-option">
+                                                <span class="ml-2">{{option.type}}</span>
+                                            </div>
+                                        </ng-template>
+                                    </p-multiSelect>
+                                </ng-template>
+                            </p-columnFilter>
+                        </div>
+                    </th>
+                    <th>
+                        <div class="flex justify-content-between align-items-center">
+                            Date
+                            <p-columnFilter type="date" field="date" display="menu"></p-columnFilter>
+                        </div>
+                    </th>
+                    <th>
+                        <div class="flex justify-content-between align-items-center">
+                            Emplacement
+                            <p-columnFilter field="material.emplacemant.zone" matchMode="in" display="menu"
+                                [showMatchModes]="false" [showOperator]="false" [showAddButton]="false">
+                                <ng-template pTemplate="header">
+                                    <div class="px-3 pt-3 pb-0">
+                                        <span class="font-bold">Search</span>
+                                    </div>
+                                </ng-template>
+                                <ng-template pTemplate="filter" let-value let-filter="filterCallback">
+                                    <p-multiSelect [ngModel]="value" [options]="zones" placeholder="Any"
+                                        (onChange)="filter($event.value)" optionLabel="zonNom">
+                                        <ng-template let-option pTemplate="item">
+                                            <div class="p-multiselect-representative-option">
+                                                <span class="ml-2">{{option.zonNom}}</span>
+                                            </div>
+                                        </ng-template>
+                                    </p-multiSelect>
+                                </ng-template>
+                            </p-columnFilter>
+                        </div>
+                    </th>
+                    <th>
+                        <div class="flex justify-content-between align-items-center">
+                            Type de Bon D'intervention
+                            <p-columnFilter field="typeBonDintervention" matchMode="in" display="menu"
+                                [showMatchModes]="false" [showOperator]="false" [showAddButton]="false">
+                                <ng-template pTemplate="header">
+                                    <div class="px-3 pt-3 pb-0">
+                                        <span class="font-bold">Search</span>
+                                    </div>
+                                </ng-template>
+                                <ng-template pTemplate="filter" let-value let-filter="filterCallback">
+                                    <p-multiSelect [ngModel]="value" [options]="typeBonDintervention" placeholder="Any"
+                                        (onChange)="filter($event.value)" optionLabel="name" optionValue="value">
+                                        <ng-template let-option pTemplate="item">
+                                            <div class="p-multiselect-representative-option">
+                                                <span class="ml-2">{{option.name}}</span>
+                                            </div>
+                                        </ng-template>
+                                    </p-multiSelect>
+                                </ng-template>
+                            </p-columnFilter>
+                        </div>
+                    </th>
+
+
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-bon>
+                <tr>
+                    <td style="min-width: 12rem;"> {{bon.user?.name}} </td>
+                    <td style="min-width: 12rem;">
+                        <span class="image-text ml-2">{{bon.material?.code}}</span>
+                    </td>
+                    <td style="min-width: 14rem;">
+                        {{bon.material?.typeDeFamille?.type}}
+                    </td>
+                    <td style="min-width: 10rem;">
+                        {{date(bon.date) }}
+                    </td>
+                    <td style="min-width: 10rem;">
+                        {{bon.material?.emplacemant?.zone?.zonNom }}
+                    </td>
+                    <td style="min-width: 10rem;">
+                        {{bon.typeBonDintervention }}
+                    </td>
+                    <td>
+                        <div class="flex align-items-center justify-content-center gap-2">
+                            <button (click)="showDialog(bon)" pButton
+                                class="p-button-rounded p-button-success p-button-text mr-2 mb-2"
+                                icon="pi pi-pencil"></button>
+                            <button (click)="deleteById($event,bon.id)" pButton
+                                class="p-button-rounded p-button-danger p-button-text mr-2 mb-2"
+                                icon="pi pi-trash"></button>
+                        </div>
+                    </td>
+                    <td>
+                        <button (click)="detailF(bon)" pButton
+                            class="p-button-rounded p-button-bluegray-200 p-button-text mr-2 mb-2"
+                            [icon]="visible2 ? 'pi pi-chevron-down' : 'pi pi-chevron-right'"></button>
+                    </td>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="emptymessage">
+                <tr>
+                    <td colspan="7">No customers found.</td>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="loadingbody">
+                <tr>
+                    <td colspan="7">Loading customers data. Please wait.</td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </div>
+
+
+
+    <div class="grid p-fluid">
+        <div class="col-12 md:col-6">
+            <p-dialog header="Details" [(visible)]="visible2" [modal]="true"
+                [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }" [style]="{ width: '50vw' }">
+                <div class="card">
+                    <div class="grid formgrid">
+                        <div class="col-4 mb-2 lg:col-4 lg:mb-0">
+                            <p> CODE : <a>{{detail.code}}</a> </p>
+                        </div>
+                        <div class="col-4 mb-2 lg:col-4 lg:mb-2">
+                            <p> MARQUE : <a>{{detail.marque}}</a> </p>
+                        </div>
+                        <div class="col-4 mb-2 lg:col-4 lg:mb-0">
+                            <p> MODEL : <a>{{detail.model}}</a> </p>
+                        </div>
+                    </div>
+                    <div class="grid formgrid">
+                        <div class="col-4 mb-2 lg:col-4 lg:mb-0">
+                            <p> TYPE : <a>{{detail.type}}</a> </p>
+                        </div>
+                        <div class="col-4 mb-2 lg:col-4 lg:mb-2">
+                            <p> NUMERO DE SERIE : <a>{{detail.numeroDeSerie}}</a> </p>
+                        </div>
+                        <div class="col-4 mb-2 lg:col-4 lg:mb-0">
+                            <p> TACHES EFFECUEES : <a>{{detail.tachesEffecuees}}</a> </p>
+                        </div>
+                    </div>
+                    <div class="grid formgrid">
+                        <div class="col-4 mb-2 lg:col-4 lg:mb-2">
+                            <p> ZONE : <a>{{detail.zone}} ( {{detail.observation}} )</a> </p>
+                        </div>
+                    </div>
+                </div>
+
+            </p-dialog>
+        </div>
+    </div>
+
+
+
+    <div class="grid p-fluid">
+        <div class="col-12 md:col-6">
+
+            <p-dialog [(visible)]="visible" [modal]="true" [style]="{ width: '50rem' }">
+                <form #b="ngForm" (ngSubmit)="onSubmitForm(b)">
+                    <span name="id" [(ngModel)]="bonDTO.id"></span>
+                    <div class="card">
+                        <div class="w-full mb-3" >
+                            <span class="p-float-label">
+                                <p-dropdown id="float-Technicien" [options]="users" optionLabel="name" name="idUser"
+                                    optionValue="id" [(ngModel)]="bonDTO.userName" 
+                                    ngModel></p-dropdown>
+                                <label for="float-Technicien">Technicien</label>
+                            </span>
+                        </div>
+                        <div class="w-full mb-3" >
+                            <span class="p-float-label">
+                                <p-calendar inputId="birth_date"  [showTime]="true" hourFormat="24" name="date" [(ngModel)]="bonDTO.date"  [showIcon]="true"
+                                    [showOnFocus]="false" />
+                                <label for="birth_date">Date d'affectation</label>
+                            </span>
+                        </div>
+                    
+                        <div class="w-full mb-3" >
+                            <span class="p-float-label">
+                                <p-dropdown [autoDisplayFirst]="false" inputId="float-code" [options]="materials"
+                                    optionLabel="code" name="code" optionValue="code" [(ngModel)]="bonDTO.code"
+                                    ></p-dropdown>
+                                <label for="float-code">Code de HHT</label>
+                            </span>
+                        </div>
+                        <div class="w-full mb-3" >
+                            <span class="p-float-label">
+                                <p-dropdown inputId="dropdown" [autoDisplayFirst]="false"
+                                    [options]="typeBonDintervention"
+                                    [(ngModel)]="bonDTO.typeBonDintervention"
+                                    optionLabel="name"
+                                    optionValue="value"
+                                    name="typeBonDintervention"></p-dropdown>
+                                <label for="dropdown">Type </label>
+                            </span>
+                        </div>
+                        <div class="w-full mb-3"> 
+                            <span class="p-float-label">
+                                <p-dropdown [autoDisplayFirst]="false" inputId="dropdown" [options]="shifts"
+                                    optionLabel="name" 
+                                    optionValue="value"
+                                    name="shift" [(ngModel)]="bonDTO.shift"
+                                    ></p-dropdown>
+                                <label for="dropdown">Shift</label>
+                            </span>
+                        </div>
+                        <div class="w-full mb-3">  
+                            <span class="p-float-label">
+                                <textarea [rows]="5"  inputId="TachesEffecuees" name="tachesEffecuees" [(ngModel)]="bonDTO.TachesEffecuees"  pInputTextarea  required></textarea>
+                                
+                                <label for="TachesEffecuees">Taches Effecuees</label>
+                            </span>
+                        </div>
+
+
+
+
+                    </div>
+                    <div class="card">
+                        <div class="grid formgrid">
+                            <div class="col-4 mb-2 ">
+                                <button type="submit" [disabled]="b.invalid" pButton 
+                                class="p-button-rounded p-button-success p-button-text mr-2 mb-2"
+                                label="Confirm"></button></div>
+                            <div class="col-4 mb-2 "><button (click)="confirm3()" pButton label="Cancel"
+                                class="p-button-rounded p-button-danger p-button-text mr-2 mb-2"></button></div>
+                                <p-confirmPopup key="confirm2"></p-confirmPopup>
+                        </div>
+           
+                    </div>
+                </form>
+            </p-dialog>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,28 @@
+:host ::ng-deep  .p-frozen-column {
+    font-weight: bold;
+}
+
+:host ::ng-deep .p-datatable-frozen-tbody {
+    font-weight: bold;
+}
+
+:host ::ng-deep .p-progressbar {
+    height:.5rem;
+}
+
+:host ::ng-deep .p-password input {
+    width: 100%;
+    padding:1rem;
+}
+
+:host ::ng-deep .pi-eye{
+    transform:scale(1.6);
+    margin-right: 1rem;
+    color: var(--primary-color) !important;
+}
+
+:host ::ng-deep .pi-eye-slash{
+    transform:scale(1.6);
+    margin-right: 1rem;
+    color: var(--primary-color) !important;
+}
